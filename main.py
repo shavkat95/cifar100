@@ -149,7 +149,9 @@ model.summary()
 
 print('\n \n \n ')
 
-model.fit(x_train, y_train, validation_data=(x_test, y_test), epochs=10)
+model.fit(x_train, y_train, validation_data=(x_test, y_test), epochs=100)
+
+model.save('path/to/location.keras')  # The file needs to end with the .keras extension
 
 
 
