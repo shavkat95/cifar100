@@ -144,7 +144,9 @@ outputs = tf.keras.layers.Dense(100, activation='softmax')(x_4)
 
 model = keras.Model(inputs=img_inputs, outputs=outputs, name="cifar_model")
 
-model.compile(optimizer='adam', 
+opt = keras.optimizers.Adam(learning_rate=0.000001)
+
+model.compile(optimizer=opt, 
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
