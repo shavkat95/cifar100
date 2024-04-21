@@ -15,9 +15,14 @@
 
 """CIFAR100-N dataset."""
 
+
+
 from __future__ import annotations
 import tensorflow as tf
 from tensorflow import keras
+
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 def shapes(*x):
