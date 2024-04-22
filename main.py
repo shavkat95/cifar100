@@ -132,11 +132,11 @@ x_3_2 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_2_2, x_8]))
 dp = keras.layers.Dropout(0.5)(keras.layers.Concatenate()([x_3_1, x_3_2]))
 
 
-x_4 = tf.keras.layers.Dense(1024, activation='relu')(dp)
+x_4 = tf.keras.layers.Dense(1024, activation='tanh')(dp)
 
 dp_2 = keras.layers.Dropout(0.5)(x_4)
 
-x_5 = tf.keras.layers.Dense(1024, activation='relu', kernel_regularizer=keras.regularizers.L1L2(l1=1e-7, l2=1e-6),bias_regularizer=keras.regularizers.L2(1e-5),activity_regularizer=keras.regularizers.L2(1e-6))(keras.layers.LayerNormalization()(dp_2))
+x_5 = tf.keras.layers.Dense(1024, activation=keras.layers.LeakyReLU(negative_slope=0.03))(dp_2)
 
 outputs = tf.keras.layers.Dense(100, activation='softmax')(x_5)
 
