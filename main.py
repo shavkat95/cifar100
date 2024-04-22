@@ -151,7 +151,7 @@ def build_model():
     
     return model
 
-model = keras.models.load_model('path/to/location.keras')
+model = keras.models.load_model('cifar_model.keras')
 
 opt = keras.optimizers.Adam(learning_rate=0.0000001)
 
