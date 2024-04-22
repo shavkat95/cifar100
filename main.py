@@ -53,72 +53,64 @@ img_inputs = tf.keras.Input(shape=(32, 32, 3))
 
 
 x_1 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(32, 2, 1),
-    tf.keras.layers.Conv2D(32, 2, 1), 
-    tf.keras.layers.Conv2D(32, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(1024),
 ])(img_inputs)
 
 
 x_2 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(32, 2, 1),
-    tf.keras.layers.Conv2D(32, 2, 1), 
-    tf.keras.layers.Conv2D(32, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(1024),
 ])(img_inputs)
 
 
 x_3 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(32, 2, 1),
-    tf.keras.layers.Conv2D(32, 2, 1), 
-    tf.keras.layers.Conv2D(32, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(1024),
 ])(img_inputs)
 
 
 x_4 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(32, 2, 1),
-    tf.keras.layers.Conv2D(32, 2, 1), 
-    tf.keras.layers.Conv2D(32, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(1024),
 ])(img_inputs)
 
 
 x_5 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(32, 2, 1),
-    tf.keras.layers.Conv2D(32, 2, 1), 
-    tf.keras.layers.Conv2D(32, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(1024),
 ])(img_inputs)
 
 
 x_6 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(32, 2, 1),
-    tf.keras.layers.Conv2D(32, 2, 1), 
-    tf.keras.layers.Conv2D(32, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(1024),
 ])(img_inputs)
 
 
 x_7 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(32, 2, 1),
-    tf.keras.layers.Conv2D(32, 2, 1), 
-    tf.keras.layers.Conv2D(32, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(1024),
 ])(img_inputs)
 
 
 x_8 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(32, 2, 1),
-    tf.keras.layers.Conv2D(32, 2, 1), 
-    tf.keras.layers.Conv2D(32, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
+    tf.keras.layers.Conv2D(8, 2, 1),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(1024),
 ])(img_inputs)
@@ -135,13 +127,22 @@ x_3_1 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_2_1, x_7]))
 
 x_3_2 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_2_2, x_8]))
 
-x_4 = tf.keras.layers.Dense(1024, activation='relu')(keras.layers.LayerNormalization()(keras.layers.Concatenate()([x_3_1, x_3_2])))
 
-outputs = tf.keras.layers.Dense(100, activation='softmax')(x_4)
+
+dp = keras.layers.LayerNormalization()(keras.layers.Dropout(0.5)(keras.layers.Concatenate()([x_3_1, x_3_2])))
+
+
+x_4 = tf.keras.layers.Dense(1024, activation='relu')(dp)
+
+dp_2 = keras.layers.Dropout(0.5)(x_4)
+
+x_5 = tf.keras.layers.Dense(1024, activation='relu', kernel_regularizer=keras.regularizers.L1L2(l1=1e-7, l2=1e-6),bias_regularizer=keras.regularizers.L2(1e-5),activity_regularizer=keras.regularizers.L2(1e-6))(keras.layers.LayerNormalization()(dp_2))
+
+outputs = tf.keras.layers.Dense(100, activation='softmax')(x_5)
 
 model = keras.Model(inputs=img_inputs, outputs=outputs, name="cifar_model")
 
-opt = keras.optimizers.Adam(learning_rate=0.000001)
+opt = keras.optimizers.Adam(learning_rate=0.0000001)
 
 model.compile(optimizer=opt, 
               loss='categorical_crossentropy',
@@ -154,9 +155,9 @@ model.summary()
 
 print('\n \n \n ')
 
-model.fit(x_train, y_train, validation_data=(x_test, y_test), epochs=100)
+model.fit(x_train, y_train, batch_size=16, validation_data=(x_test, y_test), epochs=5)
 
-model.save('path/to/location.keras')  # The file needs to end with the .keras extension
+model.save('cifar_model.keras')  # The file needs to end with the .keras extension
 
 
 
