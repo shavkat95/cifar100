@@ -52,95 +52,106 @@ img_inputs = tf.keras.Input(shape=(32, 32, 3))
 
 
 
-x_1 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(1024),
-])(img_inputs)
+def build_model():
+    x_1 = tf.keras.Sequential([
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(1024),
+    ])(img_inputs)
 
 
-x_2 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(1024),
-])(img_inputs)
+    x_2 = tf.keras.Sequential([
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(1024),
+    ])(img_inputs)
 
 
-x_3 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(1024),
-])(img_inputs)
+    x_3 = tf.keras.Sequential([
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(1024),
+    ])(img_inputs)
 
 
-x_4 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(1024),
-])(img_inputs)
+    x_4 = tf.keras.Sequential([
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(1024),
+    ])(img_inputs)
 
 
-x_5 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(1024),
-])(img_inputs)
+    x_5 = tf.keras.Sequential([
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(1024),
+    ])(img_inputs)
 
 
-x_6 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(1024),
-])(img_inputs)
+    x_6 = tf.keras.Sequential([
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(1024),
+    ])(img_inputs)
 
 
-x_7 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(1024),
-])(img_inputs)
+    x_7 = tf.keras.Sequential([
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(1024),
+    ])(img_inputs)
 
 
-x_8 = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Conv2D(8, 2, 1),
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(1024),
-])(img_inputs)
+    x_8 = tf.keras.Sequential([
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Conv2D(8, 2, 1),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(1024),
+    ])(img_inputs)
 
-x_1_1 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_1, x_2]))
+    x_1_1 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_1, x_2]))
 
-x_1_2 = tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_3, x_4]))
+    x_1_2 = tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_3, x_4]))
 
-x_2_1 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_1_1, x_5]))
+    x_2_1 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_1_1, x_5]))
 
-x_2_2 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_1_2, x_6]))
+    x_2_2 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_1_2, x_6]))
 
-x_3_1 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_2_1, x_7]))
+    x_3_1 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_2_1, x_7]))
 
-x_3_2 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_2_2, x_8]))
-
-
-
-dp = keras.layers.Dropout(0.5)(keras.layers.Concatenate()([x_3_1, x_3_2]))
+    x_3_2 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_2_2, x_8]))
 
 
-x_4 = tf.keras.layers.Dense(1024, activation='tanh')(dp)
 
-dp_2 = keras.layers.Dropout(0.5)(x_4)
+    dp = keras.layers.Dropout(0.5)(keras.layers.Concatenate()([x_3_1, x_3_2]))
 
-x_5 = tf.keras.layers.Dense(1024, activation=keras.layers.LeakyReLU(negative_slope=0.03))(dp_2)
 
-outputs = tf.keras.layers.Dense(100, activation='softmax')(x_5)
+    x_4 = tf.keras.layers.Dense(1024, activation='tanh')(dp)
 
-model = keras.Model(inputs=img_inputs, outputs=outputs, name="cifar_model")
+    dp_2 = keras.layers.Dropout(0.5)(x_4)
+
+    x_5 = tf.keras.layers.Dense(1024, activation=keras.layers.LeakyReLU(negative_slope=0.03))(dp_2)
+
+    outputs = tf.keras.layers.Dense(100, activation='softmax')(x_5)
+
+    model = keras.Model(inputs=img_inputs, outputs=outputs, name="cifar_model")
+    
+    opt = keras.optimizers.Adam(learning_rate=0.0000001)
+
+    model.compile(optimizer=opt, 
+                loss='categorical_crossentropy',
+                metrics=['accuracy'])
+    
+    return model
+
+model = keras.models.load_model('path/to/location.keras')
 
 opt = keras.optimizers.Adam(learning_rate=0.0000001)
 
