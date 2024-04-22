@@ -129,7 +129,7 @@ x_3_2 =tf.keras.layers.Dense(1024)(keras.layers.Concatenate()([x_2_2, x_8]))
 
 
 
-dp = keras.layers.LayerNormalization()(keras.layers.Dropout(0.5)(keras.layers.Concatenate()([x_3_1, x_3_2])))
+dp = keras.layers.Dropout(0.5)(keras.layers.Concatenate()([x_3_1, x_3_2]))
 
 
 x_4 = tf.keras.layers.Dense(1024, activation='relu')(dp)
